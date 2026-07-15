@@ -23,19 +23,19 @@ app.post('/api/users/register', async (req, res) => {
 
     if (!name) {
         return res.status(400).json({
-            error: 'Name is required!'
+            error: 'Name is required.'
         })
     }
 
     if (!email) {
         return res.status(400).json({
-            error: 'Email is required!'
+            error: 'Email is required.'
         })
     }
 
     if (!password) {
         return res.status(400).json({
-            error: 'Password is required!'
+            error: 'Password is required.'
         })
     }
 
@@ -49,7 +49,7 @@ app.post('/api/users/register', async (req, res) => {
 
         if (userExists) {
             return res.status(409).json({
-                error: 'Email already exists'
+                error: 'Email already exists.'
             })
         }
 
@@ -62,18 +62,18 @@ app.post('/api/users/register', async (req, res) => {
         })
 
         return res.status(201).json({
-            message: 'Usuário registrado com sucesso!',
+            message: 'User registered successfully.',
             user
         })
 
     } catch (error) {
-    console.error(error)
+        console.error(error)
 
-    return res.status(500).json({
-        message: error.message,
-        error
-    })
-}
+        return res.status(500).json({
+            message: error.message,
+            error
+        })
+    }
 
 })
 
