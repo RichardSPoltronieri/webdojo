@@ -9,7 +9,7 @@ describe('POST /api/users/register', () => {
 
     cy.task('deleteUser', user.email)
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
 
       expect(response.status).to.eq(201)
       expect(response.body.message).to.eq('User registered successfully.')
@@ -30,11 +30,11 @@ describe('POST /api/users/register', () => {
 
     cy.task('deleteUser', user.email)
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
       expect(response.status).to.eq(201)
     })
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
 
       expect(response.status).to.eq(409)
       expect(response.body.error).to.eq('Email already exists.')
@@ -47,7 +47,7 @@ describe('POST /api/users/register', () => {
       password: '123456'
     }
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
 
     }).then((response) => {
       expect(response.status).to.eq(400)
@@ -61,7 +61,7 @@ describe('POST /api/users/register', () => {
       password: '123456'
     }
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
 
     }).then((response) => {
       expect(response.status).to.eq(400)
@@ -75,7 +75,7 @@ describe('POST /api/users/register', () => {
       email: 'professorx.xmen@marvel.com'
     }
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
 
     }).then((response) => {
       expect(response.status).to.eq(400)
@@ -90,26 +90,12 @@ describe('POST /api/users/register', () => {
       password: '123456'
     }`
 
-    cy.post(user).then((response) => {
+    cy.postUser(user).then((response) => {
 
     }).then((response) => {
       expect(response.status).to.eq(400)
       expect(response.body.error).to.eq('Invalid JSON payload.')
     })
-    //   })
 
-
-  })
-
-  Cypress.Commands.add('post', (user) => {
-    return cy.api({
-      method: 'POST',
-      url: 'http://localhost:3333/api/users/register',
-      body: user,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      failOnStatusCode: false
-    })
   })
 })
