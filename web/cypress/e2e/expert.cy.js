@@ -20,4 +20,14 @@ describe('Expert', () => {
             .invoke('show')
             .should('be.visible')
     })
+
+    it.only('Não deve logar com senha incorreta', () => {
+    cy.submitLoginForm('papito@webdojo.com', 'katana321')
+
+    cy.get('[data-sonner-toaster=true] .title')
+      .should('be.visible')
+      .find('.title')
+      .should('have.text', 'Acesso negado! Tente novamente.')
+  })
+
 })
