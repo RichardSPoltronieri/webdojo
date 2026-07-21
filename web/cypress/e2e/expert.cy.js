@@ -22,12 +22,20 @@ describe('Expert', () => {
     })
 
     it.only('Não deve logar com senha incorreta', () => {
-    cy.submitLoginForm('papito@webdojo.com', 'katana321')
+        cy.submitLoginForm('papito@webdojo.com', 'katana321')
 
-    cy.get('[data-sonner-toaster=true] .title')
-      .should('be.visible')
-      .find('.title')
-      .should('have.text', 'Acesso negado! Tente novamente.')
-  })
+        cy.get('[data-sonner-toaster=true]')
+            .should('be.visible')
+            .as('toast')
+
+        cy.get('@toast')
+            .find('.title')
+            .should('have.text', 'Acesso negado! Tente novamente.')
+
+        cy.wait(5000)
+
+        cy.get('@toast')
+            .should('not.exist')
+    })
 
 })
